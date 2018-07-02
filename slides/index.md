@@ -42,6 +42,13 @@ Weakly Typed vs Strongly Typed
 
 ### What's a <ct>Type</ct>?
 
+primitive types  
+sum types  
+choice types  
+product types  
+functions!  
+interfaces  
+
 ***
 
 ### What's a <ct>Type System</ct>?
@@ -57,34 +64,103 @@ Weakly Typed vs Strongly Typed
 
 types are checked at <ct>runtime</ct> -> runtime errors
 
+```fsharp
+// Python
+x = 10
+y = x + 1 // Ok
+z = x + "1" // Runtime error
+// TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+
 ---
 
 ### <ct>Static</ct>
 
 Types are checked at <ct>compile time</ct> -> compilation errors
 
+```fsharp
+// F#
+let x = 10
+let y = x + 1 // Ok
+let z = x + "1" // Compiler error
+// TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+
 ***
 
 ### <ct>Typing:</ct>
 ### Weak vs Strong
 
+Not the same as Dynamic vs Static!
+
 ---
 
 ### <ct>Weak</ct>
 
-Type checking is not very strict
-
-no guarantees on the program execution  
+type checking is not (very) strict
 
 implicit conversions (usually)
+
+little guarantees on the program's correctness
+
+---
+
+### <ct>Weak</ct> typing in a <ct>dynamic</ct> language
+
+```fsharp
+// JavaScript
+'1' + '2' // returns the string "12"
+'5' - '2' // returns the number -1
+'5' * '2' // returns the number 10
+var myObject = { valueOf: function () { return 3 }} // myObject is an Object
+'1' + myObject // returns a string: "13"
+1 + myObject // returns a string: 4
+[] + {} // returns an Object
+{} + [] // returns the number 0... wait whaaaaaaaaaaaaaaaaaaaat?
+```
+
+---
+
+### <ct>Weak</ct> typing in a <ct>static</ct> language!
+
+```fsharp
+// C#
+var x = 2 + 2.0; // x is a double with value 4
+var y = 2.1 + "2"; // y is a string with value "2.12"
+
+char c = 'a';
+int i = c; // i is an integer with value 97
+
+int x = 100000;
+int y = (short) x; // y is an integer with value -31072 due to integer overflow
+```
+
+---
+
+### <ct>Weak</ct> typing in a <ct>static</ct> language!
+
+```fsharp
+// C#
+public class Animal {}
+public class Reptile : Animal { }
+public class Mammal : Animal { }
+
+public void Test(Animal a)
+{
+  var r = (Reptile) a;
+}
+
+Test(new Mammal());
+// Run-time exception: Unable to cast object of type 'Mammal' to type 'Reptile'.
+```
 
 ---
 
 ### <ct>Strong</ct>
 
-Type checking is strict
+Type checking is strict(er)
 
-provides guarantees on the
+program's correctness is easier to prove (well, in theory)
 
 conversions must be explicit
 
@@ -93,7 +169,23 @@ conversions must be explicit
 ### <ct>Typing:</ct>
 ### Nominal vs Structural
 
-rather using for static types
+applies to static typing
+
+---
+
+### <ct>Nominal</ct>
+
+Very popular in mainstream languages like C#, C++, or Java  
+
+Types are identified by their respective <ct>names</ct>
+
+---
+
+### <ct>Structural</ct>
+
+Also called row polymorphism
+
+Types are identified by their respective <ct>structures</ct> and <ct>properties</ct>
 
 ***
 
@@ -101,7 +193,7 @@ rather using for static types
 
 <quote>If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.</quote>
 
-similar to stuctural typing, but for dynamic types
+similar to stuctural typing, but for dynamic types - the structural equivalence is checked at runtime
 
 ***
 
