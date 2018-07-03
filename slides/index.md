@@ -121,7 +121,7 @@ var myObject = { valueOf: function () { return 3 }} // myObject is an Object
 
 ---
 
-### <ct>Weak</ct> typing in a <ct>static</ct> language!
+### <ct>Weak</ct> typing in a <ct>static</ct> language - 1
 
 ```fsharp
 // C#
@@ -137,13 +137,13 @@ int y = (short) x; // y is an integer with value -31072 due to integer overflow
 
 ---
 
-### <ct>Weak</ct> typing in a <ct>static</ct> language!
+### <ct>Weak</ct> typing in a <ct>static</ct> language - 2
 
 ```fsharp
 // C#
 public class Animal {}
-public class Reptile : Animal { }
-public class Mammal : Animal { }
+public class Reptile : Animal {}
+public class Mammal : Animal {}
 
 public void Test(Animal a)
 {
@@ -164,6 +164,37 @@ program's correctness is easier to prove (well, in theory)
 
 conversions must be explicit
 
+---
+
+### <ct>Strong</ct> typing in a <ct>dynamic</ct> language
+
+Back to our first example in Python!
+
+```fsharp
+// Python
+x = 10
+y = x + 1 // Ok
+z = x + "1" // Runtime error
+// TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+
+---
+
+### <ct>Strong</ct> typing in a <ct>static</ct> language
+
+```fsharp
+// F#
+let x = 2 + 2.0 // Compiler error, The type 'float' does not match the type 'int'
+let y = 2.1 + "2" // Compiler error, The type 'string' does not match the type 'float'
+
+let c: char = 'a'
+let i: int = c // Compiler error, expected to have type 'int' but here has type 'char'
+
+let x: int = 100000
+let y: int = int16 x // Compiler error, expected to have type 'int' but here has type 'int16'
+let z = int16 x // this compiles and runs, but the result still is -31072
+```
+
 ***
 
 ### <ct>Typing:</ct>
@@ -179,6 +210,21 @@ Very popular in mainstream languages like C#, C++, or Java
 
 Types are identified by their respective <ct>names</ct>
 
+```fsharp
+// C#
+class Employee { public string Name; }
+class Animal { public string Name; }
+
+string Hire(Employee employee)
+{
+  // some fancy logic here...
+  return employee.Name;
+}
+
+var name = Hire(new Employee()); // This works
+var name = Hire(new Animal()); // This doesn't as 'Hire' explicitly expects an 'Employee'
+```
+
 ---
 
 ### <ct>Structural</ct>
@@ -187,13 +233,61 @@ Also called row polymorphism
 
 Types are identified by their respective <ct>structures</ct> and <ct>properties</ct>
 
+```fsharp
+// Elm
+hire: { name: String } -> String
+hire entity =
+  // Some fancy logic here...
+  entity.name
+
+hire { name = "Tomek Nowak" } // This works, returns the string 'Tomek Nowak'
+hire { name = "Garfield" } // This also works, returns the string 'Garfield'
+```
+
+---
+But there's more...
+
+### Structural <ct>subtyping</ct>
+
+Beware the awesomeness!
+
+```fsharp
+// Elm
+type alias TypeWithName a = { a | name: String }
+
+hire: TypeWithName a -> String
+hire entity =
+  // Some fancy logic here...
+  entity.name
+
+hire { name = "Tomek Nowak", age = 25, gender = "male" } // This still works!
+hire { name = "Garfield", canFly = False, hasPaws = True } // And this works too!
+```
+
+The actual structure of the types is checked as compile-time,
+making this super safe while giving a dynamic feel to the language
+
+---
+
+### <ct>TODO</ct>
+
+One more example in Go!
+
+implicit interface implementation
+
 ***
 
 ### <ct>Duck</ct> Typing
 
 <quote>If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.</quote>
 
-similar to stuctural typing, but for dynamic types - the structural equivalence is checked at runtime
+It's basically runtime structural typing!
+
+---
+
+### <ct>TODO</ct>
+
+example of duck typing in Python
 
 ***
 
