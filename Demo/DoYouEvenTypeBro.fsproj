@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="IntroToFSharp.fs" />
+    <Compile Include="OptionExamples.fs" />
+    <Compile Include="ResultExamples.fs" />
+  </ItemGroup>
+</Project>
