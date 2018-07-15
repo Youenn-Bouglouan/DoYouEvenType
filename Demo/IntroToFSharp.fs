@@ -15,13 +15,14 @@ module IntroToFSharp =
 
     let addResult = add 1 3
 
+    /// this is a record type (product type). It is immutable by default.
     type Customer = {
         Id: Guid
         Name: string
         Age: int
     }
 
-    /// A function that takes 3 parameters and returns a Customer
+    /// a function that takes 3 parameters and returns a Customer
     let createCustomer name age =
         {
             Id = Guid.NewGuid()
@@ -37,15 +38,16 @@ module IntroToFSharp =
 
     printMessageIfTrue "Hello!" false
 
-    /// A generic function that runs another function passed as parameter
+    /// a generic function that runs another function passed as parameter
     let calculatePrice a b func =
         func a b
 
     let price1 = calculatePrice 10 12 (fun a b -> a + b)
     let price2 = calculatePrice 10. 12.2 (fun a b -> a * b)
 
-
+    /// -----------------------------------------------------------------------------
     /// discriminated unions (aka 'Sum Types' or 'Choice Types') and pattern matching
+    /// -----------------------------------------------------------------------------
 
     type MyChoiceType =
         | FirstChoice
@@ -59,7 +61,6 @@ module IntroToFSharp =
         | ThirdChoice -> "I chose the third option"
 
     let myChoice = choose MyChoiceType.SecondChoice
-
 
     /// more advanced example
 
