@@ -10,44 +10,86 @@
 
 ***
 
-a few words about this presentation  
-prepared in just 4 hours
-(todo add picture unicorn...)
+### <ct>Who am I?</ct>
+
+Youenn Bouglouan
+
+C# developer by day, F# practicioner by night
+
+ http://www.ybouglouan.pl
+
+ <aside class="notes">
+		blog where I talk about various things like creating websites using F#,
+    functional programming, REST APIs, how to write good specs...
+ </aside>
+
+---
+
+### <ct>Why today's topic?</ct>
+
+<p class="fragment fade-in">Spaces vs Tabs</p>
+
+<p class="fragment fade-in">Waterfall vs Agile</p>
+
+<p class="fragment fade-in">Java vs C#</p>
+
+<p class="fragment fade-in">PC vs Mac (vs Linux)</p>
+
+<p class="fragment fade-in">Object Oriented vs Functional</p>
+
+<ct><p class="fragment fade-in">Weakly Typed vs Strongly Typed</p></ct>
+
+ <aside class="notes">
+		as the good programmers that we are, we often like to have strong opinions
+    on things we don't necessarily understand. Things like the following...
+
+    Today I want to shed some light on this last point, because I quite often
+    read or hear someone say "I prefer Java or C++ or C# because it's strongly typed
+    and safer", or the opposite argument like "I use JavaScript because I know what I'm doing
+    and don't want to hinder my creativity!". While there's some truth in this, very often we
+    don't have enough knowledge about other languages out there and other programming paradigms
+    to have a proper discussion on the topic. So discussions like that generally boil down to
+    "my language is better than yours because this is the only language I know and your language sucks anyway".
+ </aside>
+
+---
+
+### <ct>Who is this presentation for?</ct>
+
+<p class="fragment fade-in">Developers -> get a better idea of what's out there</p>
+
+<p class="fragment fade-in">QA Specialists -> understand why there are bugs and issues</p>
+
+ <aside class="notes">
+		For developers, encourage you to try other languages, other paradigms, see how others
+    might do certain things better, and how can you transfer this knowledge into your own language...
+
+    For our QA friends, I'd like to uncover some of the reasons why we have so many bugs or issues in our programs,
+    and why those bugs seem to appear over and over again. Because it's not only because we developers suck
+    (well sometimes it is), but also because we don't always use the best tools available for the job.
+ </aside>
 
 ***
 
 ### <ct>Typing 101</ct>
-#### let's get those straight
-
-***
-
-### Things <ct>to do</ct> to start a <ct>holy</ct> war
-### The <ct>developers</ct>' way
-
-</br>
-
-Spaces vs Tabs
-
-Waterfall vs Agile
-
-Java vs C#
-
-PC vs Mac
-
-Object Oriented vs Functional
-
-Weakly Typed vs Strongly Typed
 
 ***
 
 ### What's a <ct>Type</ct>?
 
-primitive types  
-sum types  
-choice types  
-product types  
-functions!  
-interfaces  
+A way to represent <ct>data</ct> or <ct>behavior</ct> within a programming language
+
+* <ct>primitive types</ct> (int, bool, char, float...)
+
+* <ct>product types</ct> (classes, records, objects, tuples...)
+
+* <ct>sum types</ct> (unions but not only... we'll see those later!)
+
+* <ct>sets</ct> (lists, arrays, maps, dictionaries...)
+
+* <ct>functions!</ct>
+
+* <ct>interfaces!</ct>
 
 ***
 
@@ -297,10 +339,6 @@ example of duck typing in Python
 
 ***
 
-It's not always black and white
-
-***
-
 ## So, what is the issue here?
 
 <img src="images/elm-two-way-data-binding-angularjs.jpg" style="background: transparent; border-style: none;"  width=500>
@@ -340,38 +378,6 @@ It's not always black and white
     * compiles to JS
 * ELM time-travel debugger
 * ...
-
----
-
-## Ok, Ok, but... functional?!
-
----
-
-### Functions
-
-```elm
-add1: number -> number
-add1 x = x + 1
-
-add: number -> number -> number
-add x y = x + y
-```
-
----
-
-### Partial Application
-
-```elm
-add: number -> number -> number
-add x y = x + y
-
-add2: number -> number
-add2 = add 2
-
-// add2 y = add 2 y
-```
-
----
 
 ### Function Composition
 
