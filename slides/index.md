@@ -87,9 +87,9 @@ A way to represent <ct>data</ct> or <ct>behavior</ct> within a programming langu
 
 * <ct>sets</ct> (lists, arrays, maps, dictionaries...)
 
-* <ct>functions!</ct>
+* <ct>functions</ct>(!)
 
-* <ct>interfaces!</ct>
+* <ct>interfaces</ct>(!)
 
 ***
 
@@ -125,7 +125,7 @@ Types are checked at <ct>compile time</ct> -> compilation errors
 let x = 10
 let y = x + 1 // Ok
 let z = x + "1" // Compiler error
-// TypeError: unsupported operand type(s) for +: 'int' and 'str'
+// The type 'string' does not match the type 'int'
 ```
 
 ***
@@ -275,6 +275,8 @@ Also called row polymorphism
 
 Types are identified by their respective <ct>structures</ct> and <ct>properties</ct>
 
+Present under different forms in Elm, Go, TypeScript, Scala, OCaml, Haskell...
+
 ```fsharp
 // Elm
 hire: { name: String } -> String
@@ -311,11 +313,31 @@ making this super safe while giving a dynamic feel to the language
 
 ---
 
-### <ct>TODO</ct>
+### <ct>Structural</ct> typing
+#### for <ct>implicit</ct> interface implementation
 
-One more example in Go!
+```fsharp
+// Go
+type Stringer interface {
+  String() string
+}
 
-implicit interface implementation
+import ("fmt")
+
+type User struct {
+  name string
+}
+
+func (user User) String() string {
+  return fmt.Sprintf("User: name = %s", user.name)
+}
+
+func main() {
+  user := User{name: "Tomek Nowak"}
+  fmt.Println(user) // fmt.Println(...) takes a Stringer interface as parameter
+  //prints 'User: name = Tomek Nowak'
+}
+```
 
 ***
 
@@ -323,7 +345,27 @@ implicit interface implementation
 
 <quote>If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.</quote>
 
-It's basically runtime structural typing!
+basically the same as structural typing, but at <ct>runtime</ct>!
+
+```fsharp
+// Python
+class Duck:
+    def quack(self):
+        print("Quack!")
+
+class Dog:
+    def bark(self):
+        print("Woooof!")
+
+def lets_quack(animal):
+  animal.quack()
+
+donaldTusk = Duck()
+rex = Dog()
+
+lets_quack(donaldTusk) // prints 'Quack!'
+lets_quack(rex) // runtime error!
+```
 
 ---
 
