@@ -71,6 +71,8 @@ C# by day, F# by night
 
 ***
 
+#### Part I
+____
 ### <ct>Typing 101</ct>
 
 ***
@@ -429,10 +431,16 @@ let newCustomer = createCustomer 18 "Tomek Nowak"
 
  <small>https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system</small>
 
+***
 
+#### Part II
 
+____
 
----
+#### It's not about what <ct>you can do</ct> for your types
+### It's about what your types <ct>can do for you</ct>!
+
+***
 
 ## Programming languages 
 
