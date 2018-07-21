@@ -442,14 +442,168 @@ ____
 
 ***
 
-## Programming languages 
+#### Let's start with a <ct>simple example</ct>
+
+```fsharp
+// C#
+
+public interface ICustomerService
+{
+  Customer CreateCustomer(CustomerDto dto);
+}
+
+public class CustomerService : ICustomerService
+{
+  public Customer CreateCustomer(CustomerDto dto)
+  {
+    // implementation here
+  }
+}
+```
+
+---
+
+#### A possible and <ct>plausible</ct> implementation
+
+```fsharp
+// C#
+
+public Customer CreateCustomer(CustomerDto dto)
+{
+  var isValid = Validate(dto);
+  if (isValid)
+  {
+    var newCustomer = _dbService.SaveCustomer(dto);
+    return newCustomer;
+  }
+  else
+  {
+    return null;
+  }
+}
+
+private bool Validate(CustomerDto dto)
+{
+  return dto.Code != "" && dto.Contact.Email.IsValid() && dto.Age >= 18;
+}
+
+```
+
+---
+
+#### <ct>Possible outcomes</ct>
 
 
-| Functional  | Imperative  |
-|:-:|:-:|
-| series of expressions   | series of statements  |
-| immutable state | mutable state |
-| purity (same input -> same output)  | side effects |
+| value of dto | Result of Validate(...) | Result of CreateCustomer(...)
+|:-:|:-:|:-:|
+not null | true | new Customer
+not null | false | <ct>null</ct> 
+null | <ct>throws exception</ct> | failure
 
---- 
+Other possible scenarios:
 
+* _dbService is <ct>null</ct> -> <ct>throws exception</ct>
+
+* _dbService <ct>throws exception</ct> -> failure
+
+---
+
+#### Let's take a <ct>step back</ct>
+
+```fsharp
+// C#
+
+public interface ICustomerService
+{
+  Customer CreateCustomer(CustomerDto dto);
+}
+```
+
+<h class="fragment fade-in">
+<img src="https://media.giphy.com/media/3oEduX3zdIiqpfPJLO/giphy.gif" style="background: white;" width=540 />
+</h>
+
+---
+
+#### Just another LOB app
+
+```fsharp
+public void DisplaySalesReport(DateRangeFilter dateRange)
+{
+  var canGenerateReport = await authService.GetPermissions(_session.GetCurrentUser());
+  if (!canGenerateReport)
+    return;
+  
+  var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
+  var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
+  var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+  Show(salesReport);
+}
+
+```
+
+---
+
+#### A few <ct>bug reports</ct> later...
+
+```fsharp
+public void DisplaySalesReport(DateRangeFilter dateRange)
+{
+  var canGenerateReport = await authService.GetPermissions(_session.GetCurrentUser());
+  if (!canGenerateReport)
+    return;
+  
+  if (dateRange != null && dateRange.Year != null)
+  {
+    var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
+    var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
+    if (salesResults == null || products == null)
+      return;
+
+    if (SelectedCustomers == null)
+      SelectedCustomers = new List<Customer>();
+    var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+
+    if (salesReport != null)
+      Show(salesReport);
+  }
+}
+
+```
+
+---
+
+#### Slapping a <ct>try-catch</ct> there too, just in case of!
+
+```fsharp
+public void DisplaySalesReport(DateRangeFilter dateRange)
+{
+  try
+  {
+    var canGenerateReport = await authService.GetPermissions(_session.GetCurrentUser());
+    if (!canGenerateReport) return;
+    
+    if (dateRange != null && dateRange.Year != null)
+    {
+      var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
+      var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
+      if (salesResults == null || products == null) return;
+
+      if (SelectedCustomers == null) SelectedCustomers = new List<Customer>();
+      var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+
+      if (salesReport != null) Show(salesReport);
+    }
+  } catch (Exception)
+  {
+    Log.Error("oopsie... I guess we didn't handle all nulls and exceptions after all...")
+  }
+}
+```
+
+***
+
+#### So now we know what the <ct>problem</ct> is
+### <ct>exceptions</ct> and <ct>nulls</ct> make our code <ct>brittle and unreliable</ct>
+
+---
