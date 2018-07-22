@@ -626,4 +626,132 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
 ####Step 1
 ### Introducing <ct>sum types</ct> and <ct>pattern matching</ct>
 
-(F# demo)
+---
+
+#### <ct>Sum types</ct> can be seen as <ct>enums on steroids</ct>!
+
+Also called Choice Types, Discriminated Unions, Tagged Unions...   
+Available in F#, Elm, Haskell, TypeScript, Scala, Rust, Swift...
+
+#### Very powerful when combined with <ct>exhaustive pattern matching</ct>
+
+---
+
+#### <ct>Demo</ct> - sum types and pattern matching
+
+---
+
+#### <ct>sum types</ct> and <ct>pattern matching</ct> in a nutshell
+
+```fsharp
+// F#
+type EntityId =
+  | Customer of customerCode: string
+  | SalesReceipt of documentId: Guid
+  | Product of productId: integer
+
+match entity with
+| Customer code -> // the entity is a customer
+| SalesReceipt id -> // the entity is a sales receipt
+| Product id -> // the entity is a product
+// The compiler makes sure you haven't forgotten a case!
+```
+
+***
+
+####Step 2
+### Getting rid of <ct>nulls</ct> using <ct>Option</ct>
+#### Just a specific <ct>sum type</ct> with 2 cases!
+
+---
+
+#### <ct>Option</ct> makes the <ct>possible absence</ct> of value <ct>explicit</ct>
+#### You have to deal with it at <ct>compile time</ct>
+
+```fsharp
+// F#
+type Option<'a> =
+  | Some of 'a
+  | None
+```
+
+```fsharp
+// Haskell and Elm
+data Maybe a = Just a | Nothing
+```
+
+```fsharp
+// Rust
+enum Option<T> {
+  None,
+  Some(T),
+}
+```
+
+---
+
+####<ct>Demo</ct> - fix nulls using Option
+
+---
+
+#### <ct>Option</ct> in a nutshell
+
+```fsharp
+// F#
+type Contact = {
+  Email: string
+  PhoneNumber: string option // Explicilty mark the phone number as not mandatory
+}
+
+match contact.PhoneNumber with
+| Some phoneNumber -> // deal with the phone number
+| None -> // deal with the absence of phone number
+```
+
+***
+
+####Step 3
+### Getting rid of <ct>exceptions</ct> using <ct>Result</ct>
+#### Yet another <ct>sum type</ct>!
+
+---
+
+#### <ct>Result</ct> makes both the <ct>success</ct> and <ct>error</ct> path <ct>explicit</ct>
+
+```fsharp
+// F#
+type Result<'T, 'Error> =
+  | Ok of 'T
+  | Error of 'TError
+```
+
+```fsharp
+// OCaml
+type ('a, 'b) result = Ok of 'a | Error of 'b type
+```
+
+```fsharp
+// Rust
+enum Result<T, E> {
+  Ok(T),
+  Err(E),
+}
+```
+
+---
+
+####<ct>Demo</ct> - fix exception using Result
+
+---
+
+#### <ct>Result</ct> in a nutshell
+
+```fsharp
+// F#
+// Result<Customer, string> validateCustomer(Customer customer) {...}
+let validateCustomer customer =
+  if customer.Code <> "" && customer.Age >= 18 then
+       Ok customer
+  else
+      Error "the customer is not valid!"
+```
