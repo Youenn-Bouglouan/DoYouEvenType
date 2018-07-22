@@ -380,7 +380,6 @@ lets_quack(rex) // runtime error!
 
  <img src="images/java-type-inference-com1.png" style="background: white;" width=540 />
  <img src="images/java-type-inference-com2.png" style="background: white;" width=540 />
- <img src="images/java-type-inference-com3.png" style="background: white;" width=540 />
  <img src="images/java-type-inference-com4.png" style="background: white;" width=540 /> 
 
 ---
@@ -389,7 +388,6 @@ lets_quack(rex) // runtime error!
 
 ```fsharp
 // C++
-
 void withoutTypeInference(std::vector<std::complex<double>> & myVector)
 {
   std::vector<std::complex<double>>::const_iterator it = myVector.begin();
@@ -445,8 +443,6 @@ ____
 #### Let's start with a <ct>simple example</ct>
 
 ```fsharp
-// C#
-
 public interface ICustomerService
 {
   Customer CreateCustomer(CustomerDto dto);
@@ -466,8 +462,6 @@ public class CustomerService : ICustomerService
 #### A possible and <ct>plausible</ct> implementation
 
 ```fsharp
-// C#
-
 public Customer CreateCustomer(CustomerDto dto)
 {
   var isValid = Validate(dto);
@@ -511,8 +505,6 @@ Other possible scenarios:
 #### Let's take a <ct>step back</ct>
 
 ```fsharp
-// C#
-
 public interface ICustomerService
 {
   Customer CreateCustomer(CustomerDto dto);
@@ -535,8 +527,8 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
     return;
   
   var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
-  var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
-  var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+  var products = await _productsService.RetrieveProductCatalog(dateRange.Year, ProductCategory);
+  var salesReport = await ReportHelper.GenerateReport(salesResults, products, SelectedCustomers);
   Show(salesReport);
 }
 
@@ -556,13 +548,13 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
   if (dateRange != null && dateRange.Year != null)
   {
     var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
-    var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
+    var products = await _productsService.RetrieveProductCatalog(dateRange.Year, ProductCategory);
     if (salesResults == null || products == null)
       return;
 
     if (SelectedCustomers == null)
       SelectedCustomers = new List<Customer>();
-    var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+    var salesReport = await ReportHelper.GenerateReport(salesResults, products, SelectedCustomers);
 
     if (salesReport != null)
       Show(salesReport);
@@ -586,11 +578,11 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
     if (dateRange != null && dateRange.Year != null)
     {
       var salesResults = await _salesService.GetSalesResults(dateRange, CurrentCountry);
-      var products = await _productsService.RetrieveProductCatalog(dateRange.Year, CurrentProductCategory);
+      var products = await _productsService.RetrieveProductCatalog(dateRange.Year, ProductCategory);
       if (salesResults == null || products == null) return;
 
       if (SelectedCustomers == null) SelectedCustomers = new List<Customer>();
-      var salesReport = await _reportGenerator.GenerateReport(salesResults, products, SelectedCustomers);
+      var salesReport = await ReportHelper.GenerateReport(salesResults, products, SelectedCustomers);
 
       if (salesReport != null) Show(salesReport);
     }
