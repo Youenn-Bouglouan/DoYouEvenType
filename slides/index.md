@@ -97,6 +97,16 @@ A way to represent <ct>data</ct> or <ct>behavior</ct> within a programming langu
 
 ### What's a <ct>Type System</ct>?
 
+For a given language:
+
+* defines the <ct>kind of types</ct> available
+
+* <ct>maps types</ct> to the various <ct>constructs</ct> (expressions, variables, functions...  )
+
+* determines how types <ct>interact</ct> with each other
+
+* sets the <ct>rules</ct> that make a type either valid or invalid
+
 ***
 
 ### <ct>Typing:</ct>
