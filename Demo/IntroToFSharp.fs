@@ -22,7 +22,7 @@ module IntroToFSharp =
         Age: int
     }
 
-    /// a function that takes 3 parameters and returns a Customer
+    /// a function that takes 2 parameters and returns a Customer
     let createCustomer name age =
         {
             Id = Guid.NewGuid()

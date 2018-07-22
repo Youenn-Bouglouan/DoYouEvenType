@@ -607,3 +607,21 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
 ### <ct>exceptions</ct> and <ct>nulls</ct> make our code <ct>brittle and unreliable</ct>
 
 ---
+
+#### What can we do about it?
+
+<h class="fragment fade-in">
+### <ct>Get rid of nulls and exceptions altogether!</ct>
+<img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" style="background: white;" width=540 />
+</h>
+
+---
+
+### Let's see how to achieve this in <ct>3</ct> little steps
+
+***
+
+####Step 1
+### Introducing <ct>sum types</ct> and <ct>pattern matching</ct>
+
+(F# demo)
