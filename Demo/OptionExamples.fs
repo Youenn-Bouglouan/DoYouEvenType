@@ -14,11 +14,36 @@ module NullExample =
     }
 
     let sendEmail customer message =
-        printf "sending email to %s <%s>: %s\n" customer.Code customer.Contact.Email message |> ignore
+        printfn "sending email to %s <%s>: %s\n" customer.Code customer.Contact.Email message |> ignore
     
     let customer1 = { Code = "TNOWAK"; Name = "Tomek Nowak"; Contact = Unchecked.defaultof<Contact> }
 
     sendEmail customer1 "Hello Dear Customer!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Let's fix this!
@@ -39,11 +64,35 @@ module OptionExampleTODO =
     }
 
     let sendEmail customer message =
-        printf "sending email to %s <%s>: %s\n" customer.Code customer.Contact.Email message |> ignore
+        printfn "sending email to %s <%s>: %s\n" customer.Code customer.Contact.Email message |> ignore
     
     let customer1 = { Code = "TNOWAK"; Name = "Tomek Nowak"; Contact = Unchecked.defaultof<Contact> }
 
     sendEmail customer1 "Hello Dear Customer!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // solution

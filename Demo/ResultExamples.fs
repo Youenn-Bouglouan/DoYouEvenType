@@ -85,6 +85,98 @@ module ExceptionExample =
 
 
 
+
+
+
+
+
+
+
+
+
+// Let's try to fix it
+
+/// Our own API to create a new customer
+module ExceptionExampleFixed =
+
+    let validateDto customerDto =
+        not (String.IsNullOrWhiteSpace customerDto.FirstName) &&
+        not (String.IsNullOrWhiteSpace customerDto.LastName) &&
+        customerDto.Age >= 18
+
+    let convertToCustomer customerDto =
+        {
+            Id = ((string customerDto.FirstName.[0]) + customerDto.LastName).ToUpper ()
+            Name = customerDto.FirstName + " " + customerDto.LastName
+            Age = customerDto.Age
+        }
+
+    let createCustomer customerDto =
+        try
+            let isValid = validateDto customerDto
+            if isValid then
+                let customer = convertToCustomer customerDto
+                let savedCustomer = Db.save customer
+                savedCustomer
+            else
+                Unchecked.defaultof<Customer> // the customer could not be saved, return null!
+        with
+            | :? Db.DbException as ex ->
+                printfn "Oh no, a DB error occurred: %A" ex |> ignore
+                Unchecked.defaultof<Customer> // the customer could not be saved, return null!
+            | ex ->
+                printfn "Oh no, an unexpected error occurred: %A" ex |> ignore
+                Unchecked.defaultof<Customer> // the customer could not be saved, return null!
+
+    // ----------------------------------------------------------------------------------------
+    // Tests
+
+    Db.clear ()
+    Db.store
+
+    let customer1 = createCustomer { FirstName = "Tomek"; LastName = "Nowak"; Age = 12 }
+    let customer2 = createCustomer { FirstName = "Tomek"; LastName = "Nowak"; Age = 18 }
+    let customer3 = createCustomer { FirstName = "Tomek"; LastName = "Kowalski"; Age = 18 }
+    let customer4 = createCustomer { FirstName = "Tomek"; LastName = "Nowak"; Age = 18 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // solution 1
 
 /// Our own API to create a new customer, using Result and simple ROP technics
@@ -160,6 +252,41 @@ module ResultExampleWithSimpleROP =
     let customer2' = createCustomerV2 { FirstName = "Tomek"; LastName = "Nowak"; Age = 18 }
     let customer3' = createCustomerV2 { FirstName = "Tomek"; LastName = "Kowalski"; Age = 18 }
     let customer4' = createCustomerV2 { FirstName = "Tomek"; LastName = "Nowak"; Age = 18 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
