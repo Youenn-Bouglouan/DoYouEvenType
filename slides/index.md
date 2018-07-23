@@ -1,5 +1,5 @@
 - title : Do you even type, Bro?
-- description : Introduction to Elm
+- description : Stuff about Types!
 - author : Youenn Bouglouan
 - theme : night
 - transition : default
@@ -18,16 +18,9 @@ C# by day, F# by night
 
  http://www.ybouglouan.pl
 
- <aside class="notes">
-		blog where I talk about various things like creating websites using F#,
-    functional programming, REST APIs, how to write good specs...
- </aside>
-
 ---
 
 ### <ct>Why today's topic?</ct>
-
-<p class="fragment fade-in">Spaces vs Tabs</p>
 
 <p class="fragment fade-in">Waterfall vs Agile</p>
 
@@ -39,19 +32,6 @@ C# by day, F# by night
 
 <ct><p class="fragment fade-in">Weakly Typed vs Strongly Typed</p></ct>
 
- <aside class="notes">
-		as the good programmers that we are, we often like to have strong opinions
-    on things we don't necessarily understand. Things like the following...
-
-    Today I want to shed some light on this last point, because I quite often
-    read or hear someone say "I prefer Java or C++ or C# because it's strongly typed
-    and safer", or the opposite argument like "I use JavaScript because I know what I'm doing
-    and don't want to hinder my creativity!". While there's some truth in this, very often we
-    don't have enough knowledge about other languages out there and other programming paradigms
-    to have a proper discussion on the topic. So discussions like that generally boil down to
-    "my language is better than yours because this is the only language I know and your language sucks anyway".
- </aside>
-
 ---
 
 ### <ct>Who is this presentation for?</ct>
@@ -59,15 +39,6 @@ C# by day, F# by night
 <p class="fragment fade-in">Developers -> get a better idea of what's out there</p>
 
 <p class="fragment fade-in">QA Specialists -> understand why there are bugs and issues</p>
-
- <aside class="notes">
-		For developers, encourage you to try other languages, other paradigms, see how others
-    might do certain things better, and how can you transfer this knowledge into your own language...
-
-    For our QA friends, I'd like to uncover some of the reasons why we have so many bugs or issues in our programs,
-    and why those bugs seem to appear over and over again. Because it's not only because we developers suck
-    (well sometimes it is), but also because we don't always use the best tools available for the job.
- </aside>
 
 ***
 
@@ -164,8 +135,8 @@ little guarantees on the program's correctness
 ```fsharp
 // JavaScript
 '1' + '2' // returns the string "12"
-'5' - '2' // returns the number -1
-'5' * '2' // returns the number 10
+'1' - '2' // returns the number -1
+'1' * '2' // returns the number 2
 var myObject = { valueOf: function () { return 3 }} // myObject is an Object
 '1' + myObject // returns a string: "13"
 1 + myObject // returns a string: 4
@@ -445,8 +416,7 @@ let newCustomer = createCustomer 18 "Tomek Nowak"
 
 ____
 
-#### It's not about what <ct>you can do</ct> for your types
-### It's about what your types <ct>can do for you</ct>!
+#### <ct>So, do you even type??</ct>
 
 ***
 
@@ -608,13 +578,15 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
 #### So now we know what the <ct>problem</ct> is
 ### <ct>exceptions</ct> and <ct>nulls</ct> make our code <ct>brittle and unreliable</ct>
 
+ <small>http://www.ybouglouan.pl/2017/05/how-to-efficiently-break-your-code-by-using-exceptions/</small>
+
 ---
 
 #### What can we do about it?
 
 <h class="fragment fade-in">
 ### <ct>Get rid of nulls and exceptions altogether!</ct>
-<img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" style="background: white;" width=540 />
+<img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" style="background: white;" width=480 />
 </h>
 
 ---
@@ -740,7 +712,7 @@ enum Result<T, E> {
 
 ---
 
-####<ct>Demo</ct> - fix exception using Result
+####<ct>Demo</ct> - fix exceptions using Result
 
 ---
 
@@ -755,3 +727,42 @@ let validateCustomer customer =
   else
       Error "the customer is not valid!"
 ```
+
+Enables Railway-Oriented Programming
+https://fsharpforfunandprofit.com/rop/
+
+***
+
+### <ct>That's it!</ct>
+#### What did we achieve?
+
+---
+
+#### <ct>Direct outcomes</ct>
+
+ * no more null checks everywhere
+ * no more exceptions and try-catches everywhere
+ 
+---
+
+#### <ct>Indirect outcomes</ct>
+
+ * <ct>no more lies!</ct>
+ * our models are more expressive (<ct>Option</ct>)
+ * our code is more readable and explicit (<ct>Result</ct>)
+ * the compiler is our friend -> <ct>"if it compiles, then it works"</ct>
+ * <ct>TDD!</ct>
+
+<p class="fragment fade-in"><small>*Type Driven Development</small></p>
+
+---
+
+### <ct>Where to go from here?</ct>
+
+#### <ct>Learn new languages</ct> (Elm, Elixir, F#, Rust, TypeScript)
+
+#### <ct>Explore new concepts</ct> (FP, Actor Model...)
+
+---
+
+### <ct>Thank You!</ct>
