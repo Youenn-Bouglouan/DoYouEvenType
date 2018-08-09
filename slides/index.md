@@ -354,14 +354,14 @@ lets_quack(rex) // runtime error!
 
 ### A word about <ct>Type Inference</ct>
 
- <img src="images/java-type-inference.png" style="background: white;" width=500 />
+ <img src="images/java-type-inference-v2.png" style="background: white;" width=500 />
  <small>https://twitter.com/java/status/967463386609954816</small>
 
 ---
 
- <img src="images/java-type-inference-com1.png" style="background: white;" width=540 />
- <img src="images/java-type-inference-com2.png" style="background: white;" width=540 />
- <img src="images/java-type-inference-com4.png" style="background: white;" width=540 /> 
+ <img src="images/java-type-inference-com1-v2.png" style="background: white;" width=540 />
+ <img src="images/java-type-inference-com2-v2.png" style="background: white;" width=540 />
+ <img src="images/java-type-inference-com4-v2.png" style="background: white;" width=540 /> 
 
 ---
 
