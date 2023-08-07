@@ -16,8 +16,6 @@ Youenn Bouglouan
 
 C# by day, F# by night
 
- http://www.ybouglouan.pl
-
 ---
 
 ### <ct>Why today's topic?</ct>
@@ -577,8 +575,6 @@ public void DisplaySalesReport(DateRangeFilter dateRange)
 
 #### So now we know what the <ct>problem</ct> is
 ### <ct>exceptions</ct> and <ct>nulls</ct> make our code <ct>brittle and unreliable</ct>
-
- <small>http://www.ybouglouan.pl/2017/05/how-to-efficiently-break-your-code-by-using-exceptions/</small>
 
 ---
 
